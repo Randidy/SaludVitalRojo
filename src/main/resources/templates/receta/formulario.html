@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Receta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #fdeaea, #fdf3f4);
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px 20px;
+        }
+        .card {
+            max-width: 720px;
+            margin: auto;
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #c0392b;
+            margin-bottom: 40px;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        .form-label {
+            font-weight: 500;
+        }
+        .form-select, .form-control {
+            border-radius: 8px;
+        }
+        .btn-submit {
+            background-color: #e74c3c;
+            color: #fff;
+            font-weight: 600;
+            padding: 10px 25px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-submit:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        .btn-cancel {
+            background-color: #95a5a6;
+            color: #fff;
+            font-weight: 500;
+            padding: 10px 25px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+        }
+        .btn-cancel:hover {
+            background-color: #7f8c8d;
+            transform: translateY(-2px);
+            color: #fff;
+        }
+        .alert {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .alert i {
+            font-size: 1.2em;
+        }
+        .btn-group-center {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2><i class="fas fa-prescription-bottle-alt"></i> Registrar Receta</h2>
+
+    <!-- Mostrar errores generales -->
+    <div th:if="${error}" class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span th:text="${error}"></span>
+    </div>
+
+    <form th:action="@{/recetas/guardar}" th:object="${receta}" method="post">
+        <!-- Paciente -->
+        <div class="mb-4">
+            <label for="paciente" class="form-label">Paciente:</label>
+            <select id="paciente" th:field="*{pacienteId}" class="form-select" required>
+                <option value="" disabled selected>-- Seleccione un paciente --</option>
+                <option th:each="paciente : ${pacientes}" 
+                        th:value="${paciente.id}" 
+                        th:text="${paciente.nombre} + ' (' + paciente.numeroIdentificacion + ')'">
+                </option>
+            </select>
+        </div>
+
+        <!-- Médico -->
+        <div class="mb-4">
+            <label for="medico" class="form-label">Médico:</label>
+            <select id="medico" th:field="*{medicoId}" class="form-select" required>
+                <option value="" disabled selected>-- Seleccione un médico --</option>
+                <option th:each="medico : ${medicos}" 
+                        th:value="${medico.id}" 
+                        th:text="${medico.nombre} + ' (' + medico.especialidad + ')'">
+                </option>
+            </select>
+        </div>
+
+        <!-- Medicamento -->
+        <div class="mb-4">
+            <label for="medicamento" class="form-label">Medicamento:</label>
+            <select id="medicamento" th:field="*{medicamentoId}" class="form-select" required>
+                <option value="" disabled selected>-- Seleccione un medicamento --</option>
+                <option th:each="medicamento : ${medicamentos}" 
+                        th:value="${medicamento.id}" 
+                        th:text="${medicamento.nombre}"></option>
+            </select>
+        </div>
+
+        <!-- Dosis -->
+        <div class="mb-4">
+            <label for="dosis" class="form-label">Dosis:</label>
+            <input type="text" id="dosis" th:field="*{dosis}" class="form-control" placeholder="Ej: 500 mg" required>
+        </div>
+
+        <!-- Frecuencia -->
+        <div class="mb-4">
+            <label for="frecuencia" class="form-label">Frecuencia:</label>
+            <input type="text" id="frecuencia" th:field="*{frecuencia}" class="form-control" placeholder="Ej: Cada 8 horas" required>
+        </div>
+
+        <!-- Fecha de caducidad -->
+        <div class="mb-4">
+            <label for="fechaCaducidad" class="form-label">Fecha de caducidad:</label>
+            <input type="date" id="fechaCaducidad" th:field="*{fechaCaducidad}" class="form-control" required>
+        </div>
+
+        <div class="btn-group-center">
+            <button type="submit" class="btn btn-submit"><i class="fas fa-flask"></i> Guardar Receta</button>
+            <a th:href="@{/recetas}" class="btn btn-cancel"><i class="fas fa-ban"></i> Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

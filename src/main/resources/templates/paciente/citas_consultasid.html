@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Citas | Salud Vital</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(150deg, #e0f2ff, #f0f4f8);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            align-items: flex-start;
+        }
+
+        main {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0d3b66;
+            font-weight: 700;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        section.citas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        article.cita-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        article.cita-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        article.cita-card h3 {
+            color: #0d3b66;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .badge {
+            font-weight: 600;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            border-radius: 50px;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .btn-primary, .btn-secondary {
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0d6efd, #3a8dff);
+            color: #fff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0b5ed7, #2a74d1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary:hover {
+            background-color: #6c757d;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        }
+
+        @media(max-width: 600px){
+            main {
+                padding: 20px 10px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <h1><i class="fa-solid fa-calendar-check"></i> Mis Citas</h1>
+
+    <section class="citas">
+        <article class="cita-card" th:each="cita : ${citas}">
+            <h3 th:text="${cita.medico.nombre} + ' - ' + cita.medico.especialidad"></h3>
+            <div class="info">
+                <i class="fa-regular fa-calendar"></i>
+                <span th:text="${#temporals.format(cita.fechaHora, 'dd/MM/yyyy')}"></span>
+            </div>
+            <div class="info">
+                <i class="fa-regular fa-clock"></i>
+                <span th:text="${#temporals.format(cita.fechaHora, 'HH:mm')}"></span>
+            </div>
+            <div class="info">
+                Estado: 
+                <span th:switch="${cita.estado}">
+                    <span th:case="'ACTIVA'" class="badge bg-success" th:text="${cita.estado}"></span>
+                    <span th:case="'CANCELADA'" class="badge bg-danger" th:text="${cita.estado}"></span>
+                    <span th:case="*" class="badge bg-secondary" th:text="${cita.estado}"></span>
+                </span>
+            </div>
+        </article>
+    </section>
+
+    <footer>
+        <a class="btn btn-primary" th:href="@{/paciente/citas/nueva}">
+            <i class="fa-solid fa-plus me-2"></i> Registrar nueva cita
+        </a>
+        <a class="btn btn-secondary" th:href="@{/paciente/inicio}">
+            <i class="fa-solid fa-arrow-left me-2"></i> Regresar al Panel
+        </a>
+    </footer>
+</main>
+
+</body>
+</html>

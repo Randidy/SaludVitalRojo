@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Medicamentos</title>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fdf3f4, #fdeaea);
+            margin: 0;
+            padding: 40px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #c0392b;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            margin: 5px 10px 20px 0;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            transition: 0.3s;
+        }
+        .btn-primary { background-color: #e74c3c; }
+        .btn-primary:hover { background-color: #c0392b; }
+        .btn-back { background-color: #7f8c8d; }
+        .btn-back:hover { background-color: #626e70; }
+        .message {
+            margin-bottom: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .success { background-color: #eafaf1; color: #2ecc71; border: 1px solid #2ecc71; }
+        .error { background-color: #fdeaea; color: #e74c3c; border: 1px solid #e74c3c; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid #f5b7b1; }
+        thead { background-color: #e74c3c; color: white; }
+        tr:hover { background-color: #fdeaea; transition: 0.3s; }
+        .actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #c0392b;
+            font-weight: bold;
+        }
+        .actions a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lista de Medicamentos</h1>
+
+    <!-- Botones para crear y volver -->
+    <a th:href="@{/medicamentos/nuevo}" class="btn btn-primary"><i class="fas fa-plus"></i> Nuevo Medicamento</a>
+    <a th:href="@{/inicio}" class="btn btn-back"><i class="fas fa-arrow-left"></i> Volver</a>
+
+    <!-- Mensajes de éxito/error -->
+    <div th:if="${param.exito}" class="message success">✅ Medicamento guardado correctamente</div>
+    <div th:if="${param.actualizado}" class="message success">✅ Medicamento actualizado correctamente</div>
+    <div th:if="${param.eliminado}" class="message error">🗑️ Medicamento eliminado</div>
+
+    <!-- Tabla de medicamentos -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="med : ${medicamentos}">
+                <td th:text="${med.id}">1</td>
+                <td th:text="${med.nombre}">Paracetamol</td>
+                <td class="actions">
+                    <!-- Editar -->
+                    <a th:href="@{/medicamentos/editar/{id}(id=${med.id})}">
+                        <i class="fas fa-pen"></i> Editar
+                    </a>
+                    <!-- Eliminar -->
+                    <a th:href="@{/medicamentos/eliminar/{id}(id=${med.id})}"
+                       onclick="return confirm('¿Seguro que deseas eliminar este medicamento?')">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

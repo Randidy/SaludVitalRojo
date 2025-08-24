@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recetas Médicas</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            background: #fdeaea;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px 20px;
+        }
+        h2 {
+            color: #e74c3c;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        .btn-danger {
+            font-weight: bold;
+        }
+        .btn-back {
+            background-color: #a6acaf;
+            color: #fff;
+            font-weight: 600;
+        }
+        .btn-back:hover {
+            background-color: #909497;
+        }
+        .alert-success {
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        table th, table td {
+            vertical-align: middle;
+        }
+        .table thead {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #fdeaea;
+        }
+        .action-links a {
+            margin-right: 8px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📋 Listado de Recetas Médicas</h2>
+        <div>
+            <a th:href="@{/recetas/nueva}" class="btn btn-danger me-2"><i class="fas fa-plus"></i> Nueva Receta</a>
+            <a class="btn btn-back" th:href="@{/inicio}"><i class="fas fa-house"></i> Inicio</a>
+        </div>
+    </div>
+
+    <div th:if="${param.exito}" class="alert alert-success mb-4">
+        ✅ Receta registrada correctamente.
+    </div>
+
+    <div class="card table-responsive">
+        <table class="table table-bordered table-hover text-center align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Paciente</th>
+                    <th>Médico</th>
+                    <th>Medicamento</th>
+                    <th>Dosis</th>
+                    <th>Frecuencia</th>
+                    <th>Emitida</th>
+                    <th>Caduca</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="r : ${recetas}">
+                    <td th:text="${r.numero}">0001</td>
+                    <td th:text="${r.paciente != null ? r.paciente.nombre : 'N/A'}">Paciente</td>
+                    <td th:text="${r.medico != null ? r.medico.nombre : 'N/A'}">Médico</td>
+                    <td th:text="${r.medicamento != null ? r.medicamento.nombre : 'N/A'}">Medicamento</td>
+                    <td th:text="${r.dosis}">500 mg</td>
+                    <td th:text="${r.frecuencia}">Cada 8 horas</td>
+                    <td th:text="${#temporals.format(r.fechaEmision, 'dd/MM/yyyy')}">30/07/2025</td>
+                    <td th:text="${#temporals.format(r.fechaCaducidad, 'dd/MM/yyyy')}">29/08/2025</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

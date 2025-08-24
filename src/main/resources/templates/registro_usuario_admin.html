@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrar Administrador</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #ffeaea; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;}
+        .form-container { background-color: #fff0f0; border: 1px solid #ff4d4d; border-radius: 12px; padding: 30px 40px; width: 400px; text-align: center; }
+        h2 { color: #cc0000; margin-bottom: 25px; }
+        label { display: block; margin-top: 15px; color: #800000; font-weight: bold; text-align: left; }
+        input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ff9999; border-radius: 6px; font-size: 15px; box-sizing: border-box; }
+        .message { margin-top: 15px; color: green; font-weight: bold; }
+        .error { margin-top: 15px; color: red; font-weight: bold; }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        button, a.btn { padding: 10px; border: none; border-radius: 6px; font-weight: bold; font-size: 16px; text-decoration: none; color: white; cursor: pointer; transition: background-color 0.3s ease; }
+        button { background-color: #cc0000; }
+        button:hover { background-color: #990000; }
+        a.btn-list { background-color: #3498db; }
+        a.btn-list:hover { background-color: #217dbb; }
+        a.btn-back { background-color: #7f8c8d; }
+        a.btn-back:hover { background-color: #626e70; }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2><i class="fas fa-user-shield"></i> Registrar Administrador</h2>
+    <div class="message" th:if="${mensaje}" th:text="${mensaje}"></div>
+    <div class="error" th:if="${error}" th:text="${error}"></div>
+
+    <form th:action="@{/admin/registrar}" method="post">
+        <label><i class="fas fa-user"></i> Usuario:</label>
+        <input type="text" name="usuario" placeholder="Ingrese nombre de usuario" required>
+
+        <label><i class="fas fa-lock"></i> Contraseña:</label>
+        <input type="password" name="password" placeholder="Ingrese contraseña" required>
+
+        <input type="hidden" name="roles" value="ADMIN">
+
+        <button type="submit"><i class="fas fa-user-plus"></i> Registrar</button>
+    </form>
+
+    <div class="btn-group">
+        <a class="btn btn-list" th:href="@{/admin/listado}"><i class="fas fa-users"></i> Ver todos los administradores</a>
+        <a class="btn btn-back" th:href="@{/admin/inicio}"><i class="fas fa-arrow-left"></i> Volver</a>
+    </div>
+</div>
+</body>
+</html>

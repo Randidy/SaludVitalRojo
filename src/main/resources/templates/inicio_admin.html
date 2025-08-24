@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administrador | Salud Vital</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans leading-normal tracking-normal">
+
+    <header class="bg-red-600 text-white shadow p-4 flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+            <i class="fas fa-hospital fa-2x"></i>
+            <h1 class="text-2xl font-bold">Salud Vital - Administrador</h1>
+        </div>
+        <a th:href="@{/logout}" class="bg-white text-red-600 px-4 py-2 rounded hover:bg-red-100 transition">
+            <i class="fas fa-sign-out-alt mr-2"></i>Cerrar sesión
+        </a>
+    </header>
+
+    <main class="max-w-5xl mx-auto mt-10">
+        <h2 class="text-2xl font-semibold mb-6 text-gray-800">Bienvenido, Administrador</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Registrar Usuario -->
+            <a th:href="@{/admin/nuevo-usuario}" class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition hover:bg-red-50">
+                <i class="fas fa-user-plus text-red-600 text-3xl mb-3"></i>
+                <h3 class="text-xl font-semibold text-gray-800">Registrar Usuario</h3>
+            </a>
+
+            <!-- Gestionar Médicos -->
+            <a th:href="@{/medicos}" class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition hover:bg-red-50">
+                <i class="fas fa-user-md text-red-600 text-3xl mb-3"></i>
+                <h3 class="text-xl font-semibold text-gray-800">Gestionar Médicos</h3>
+            </a>
+
+            <!-- Gestionar Pacientes -->
+            <a th:href="@{/pacientes}" class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition hover:bg-red-50">
+                <i class="fas fa-users text-red-600 text-3xl mb-3"></i>
+                <h3 class="text-xl font-semibold text-gray-800">Gestionar Pacientes</h3>
+            </a>
+
+            <!-- Gestionar Alergias -->
+            <a th:href="@{/alergias}" class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition hover:bg-red-50">
+                <i class="fas fa-allergies text-red-600 text-3xl mb-3"></i>
+                <h3 class="text-xl font-semibold text-gray-800">Gestionar Alergias</h3>
+            </a>
+
+            <!-- Gestionar Medicamentos -->
+            <a th:href="@{/medicamentos}" class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition hover:bg-red-50">
+                <i class="fas fa-pills text-red-600 text-3xl mb-3"></i>
+                <h3 class="text-xl font-semibold text-gray-800">Gestionar Medicamentos</h3>
+            </a>
+
+            <!-- Ver Citas -->
+            <a th:href="@{/citas}" class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition hover:bg-red-50">
+                <i class="fas fa-calendar-check text-red-600 text-3xl mb-3"></i>
+                <h3 class="text-xl font-semibold text-gray-800">Ver Citas</h3>
+            </a>
+        </div>
+    </main>
+
+    <footer class="mt-20 text-center text-gray-500 text-sm">
+        © 2025 Salud Vital - Sistema de Gestión Hospitalaria
+    </footer>
+
+</body>
+</html>

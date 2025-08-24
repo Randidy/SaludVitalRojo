@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Salud Vital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff0f0;
+        }
+
+        .login-card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-box {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(200, 0, 0, 0.3);
+            display: flex;
+            width: 800px;
+            max-width: 95%;
+            overflow: hidden;
+        }
+
+        .login-left {
+            background: linear-gradient(to bottom right, #d32f2f, #b71c1c);
+            color: white;
+            width: 50%;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-left i {
+            font-size: 100px;
+            margin-bottom: 20px;
+        }
+
+        .login-left h2 {
+            font-size: 32px;
+            margin: 0;
+            text-align: center;
+        }
+
+        .login-right {
+            width: 50%;
+            padding: 40px;
+        }
+
+        .login-right h2 {
+            color: #d32f2f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #b71c1c;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #c62828;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #b71c1c;
+        }
+
+        .extra-links {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .extra-links a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .login-box {
+                flex-direction: column;
+            }
+            .login-left,
+            .login-right {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="login-box">
+            <div class="login-left">
+                <i class="fas fa-hospital-symbol"></i>
+                <h2>Bienvenido a <br>Salud Vital</h2>
+            </div>
+            <div class="login-right">
+                <h2>Iniciar Sesión</h2>
+                <form th:action="@{/login}" method="post">
+                    <div class="form-group">
+                        <label for="username">Usuario</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit">Entrar</button>
+                </form>
+               <div class="extra-links">
+			   <a th:href="@{/registro/paciente}">¿No tienes cuenta? Regístrate aquí</a>
+			</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

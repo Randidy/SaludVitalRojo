@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Listado de Administradores</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #ffeaea; margin: 0; padding: 0; }
+        .container { width: 90%; max-width: 900px; margin: 40px auto; }
+        h2 { color: #cc0000; text-align: center; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; background-color: #fff0f0; border: 1px solid #ff4d4d; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ffcccc; }
+        th { background-color: #ff4d4d; color: white; }
+        a.btn { padding: 5px 10px; border-radius: 6px; text-decoration: none; color: white; font-weight: bold; }
+        a.btn-edit { background-color: #3498db; }
+        a.btn-edit:hover { background-color: #217dbb; }
+        a.btn-delete { background-color: #e74c3c; }
+        a.btn-delete:hover { background-color: #c0392b; }
+        .message { color: green; font-weight: bold; text-align: center; margin-bottom: 10px; }
+        .error { color: red; font-weight: bold; text-align: center; margin-bottom: 10px; }
+        a.btn-back { background-color: #7f8c8d; padding: 10px 15px; display: inline-block; margin-top: 20px; }
+        a.btn-back:hover { background-color: #626e70; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2><i class="fas fa-users"></i> Administradores</h2>
+    <div class="message" th:if="${mensaje}" th:text="${mensaje}"></div>
+    <div class="error" th:if="${error}" th:text="${error}"></div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="admin : ${usuarios}">
+                <td th:text="${admin.id}"></td>
+                <td th:text="${admin.usuario}"></td>
+                <td>
+                    <a th:href="@{|/admin/editar/${admin.id}|}" class="btn btn-edit"><i class="fas fa-edit"></i> Editar</a>
+                    <a th:href="@{|/admin/eliminar/${admin.id}|}" class="btn btn-delete" onclick="return confirm('¿Está seguro de eliminar este administrador?');"><i class="fas fa-trash"></i> Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-back" th:href="@{/admin/inicio}"><i class="fas fa-arrow-left"></i> Volver</a>
+</div>
+</body>
+</html>
